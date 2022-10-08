@@ -1,10 +1,10 @@
 
 class CumulativeDistributionFunction<TKey> where TKey : notnull
 {
-    public CumulativeDistributionFunction(IEnumerable<(double, TKey)> ranges)
+    public CumulativeDistributionFunction(IEnumerable<(double UpperBound , TKey Label)> ranges)
     {
-        bounds = ranges.Select(p => p.Item1).ToArray();
-        labels = ranges.Select(p => p.Item2).ToArray();
+        bounds = ranges.Select(p => p.UpperBound).ToArray();
+        labels = ranges.Select(p => p.Label).ToArray();
     }
 
     private double[] bounds;
