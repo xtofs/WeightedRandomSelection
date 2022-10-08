@@ -17,11 +17,11 @@ class Counter<K> : IFormattable where K : notnull
         if (format != null && format.Equals("P"))
         {
             var sum = counts.Sum(kvp => (double)kvp.Value);
-            return string.Join(", ", from kvp in counts select $"{kvp.Key}={((double)kvp.Value / sum).ToString("P", formatProvider)}");
+            return string.Join(", ", from kvp in counts orderby kvp.Key select $"{kvp.Key}={((double)kvp.Value / sum).ToString("P", formatProvider)}");
         }
         else
         {
-            return string.Join(", ", from kvp in counts select $"{kvp.Key}={kvp.Value}");
+            return string.Join(", ", from kvp in counts orderby kvp.Key select $"{kvp.Key}={kvp.Value}");
         }
     }
 }
