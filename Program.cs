@@ -1,7 +1,11 @@
 ﻿
 using System.Diagnostics;
 
-var pdf = CumulativeDistributionFunction.Create(("A", 100), ("B", 100), ("C", 60));
+var pdf = CumulativeDistributionFunction.Create(
+    ("A", 100), ("B", 100), ("C", 100),
+    ("D", 100), ("E", 100), ("F", 100),
+    ("G", 60)
+);
 
 var rng = Random.Shared;
 var counts = new Counter<string>();

@@ -1,28 +1,20 @@
 
-class CumulativeDistributionFunction<K> where K : notnull
+class CumulativeDistributionFunction<TKey> where TKey : notnull
 {
-    public CumulativeDistributionFunction(List<(double, K)> density)
+    public CumulativeDistributionFunction(IEnumerable<(double, TKey)> ranges)
     {
-        this.density = density;
+        bounds = ranges.Select(p => p.Item1).ToArray();
+        labels = ranges.Select(p => p.Item2).ToArray();
     }
 
-    private readonly List<(double, K)> density;
+    private double[] bounds;
+    private TKey[] labels;
 
-    public K Pick(double val)
+    public TKey Pick(double val)
     {
-        var ix = density.BinarySearch((val, default!), Comparer);
+        var ix = Array.BinarySearch(bounds, val);
         ix = ix < 0 ? ~ix : ix;
-        return density[ix].Item2;
-    }
-
-    private static WeightComparer Comparer = new WeightComparer();
-
-    class WeightComparer : IComparer<(double, K)>
-    {
-        public int Compare((double, K) x, (double, K) y)
-        {
-            return x.Item1.CompareTo(y.Item1);
-        }
+        return labels[ix];
     }
 }
 
