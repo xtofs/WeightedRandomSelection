@@ -8,13 +8,13 @@ var pdf = CumulativeDistributionFunction.Create(
 );
 
 var rng = Random.Shared;
-var counts = new Counter<string>();
+var counter = new Counter<string>();
 var sw = Stopwatch.StartNew();
 for (int i = 0; i < 10_000_000; i++)
 {
-    var p = pdf.Pick(rng.NextDouble());
-    counts[p] += 1;
+    var p = rng.SelectFrom(pdf);
+    counter[p] += 1;
 }
 sw.Stop();
-Console.WriteLine("{0:P}", counts);
+Console.WriteLine("{0:P}", counter);
 Console.WriteLine("{0}", sw.Elapsed);
