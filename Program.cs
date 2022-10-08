@@ -1,5 +1,5 @@
 ﻿
-var pdf = DiscreteProbabilityDensity.Create(("A", 100), ("B", 100), ("C", 60));
+var pdf = CumulativeDistributionFunction.Create(("A", 100), ("B", 100), ("C", 60));
 
 var rng = Random.Shared;
 var counts = new Counter<string>();
