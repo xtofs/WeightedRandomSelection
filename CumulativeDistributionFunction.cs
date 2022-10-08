@@ -8,6 +8,9 @@ static class CumulativeDistributionFunction
         return new CumulativeDistributionFunction<K>(ranges);
     }
 
+    public static CumulativeDistributionFunction<K> Create<K>(params (K, int)[] items) where K : notnull =>
+        Create(items.AsEnumerable());
+
     public static CumulativeDistributionFunction<K> Create<K>(IEnumerable<(K Label, double Weight)> items) where K : notnull
     {
         double sum = items.Sum(p => p.Weight);
@@ -16,5 +19,6 @@ static class CumulativeDistributionFunction
         return new CumulativeDistributionFunction<K>(ranges);
     }
 
-    public static CumulativeDistributionFunction<K> Create<K>(params (K, int)[] items) where K : notnull => Create(items.AsEnumerable());
+    public static CumulativeDistributionFunction<K> Create<K>(params (K, double)[] items) where K : notnull =>
+        Create(items.AsEnumerable());
 }
