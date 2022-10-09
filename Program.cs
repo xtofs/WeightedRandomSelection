@@ -12,9 +12,9 @@ var counter = new Counter<string>();
 var sw = Stopwatch.StartNew();
 for (int i = 0; i < 10_000_000; i++)
 {
-    var p = rng.SelectFrom(pdf);
-    counter[p] += 1;
+    var lbl = rng.SelectFrom(pdf);
+    counter[lbl] += 1;
 }
 sw.Stop();
-Console.WriteLine("{0:P}", counter);
-Console.WriteLine("{0}", sw.Elapsed);
+Console.WriteLine("counter: {0:P}", counter);
+Console.WriteLine("elapsed: {0}", sw.Elapsed);
