@@ -5,7 +5,7 @@ var weights = new[] { ("A", 100), ("B", 100), ("C", 100),
     ("D", 100), ("E", 100), ("F", 100),
     ("G", 60)};
 var pdf = CumulativeDistributionFunction.Create(weights);
-Console.WriteLine("distribution {0:P1}", weights.Format("P"));
+Console.WriteLine("weights {0:P1}", weights.Format("P"));
 
 var rng = Random.Shared;
 var counter = new Counter<string>();
