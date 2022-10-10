@@ -11,7 +11,7 @@ public class CumulativeDistributionFunction<TKey> where TKey : notnull
 
     private TKey[] labels;
 
-    public TKey Pick(double val)
+    public TKey Select(double val)
     {
         var ix = Array.BinarySearch(bounds, val);
         //  If value is not found and value is less than one or more elements in array, 
