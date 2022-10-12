@@ -8,6 +8,14 @@ static class CumulativeDistributionFunction
         return new CumulativeDistributionFunction<K>(ranges);
     }
 
+    public static CumulativeDistributionFunction<K> Create<K>(IEnumerable<KeyValuePair<K, int>> weights) where K : notnull
+    {
+        double sum = weights.Sum(p => p.Value);
+        var ranges = weights.Scan(p => p.Value / sum, 0.0, (a, b) => a + b, (item, a) => (UpperBound: a, item.Key));
+
+        return new CumulativeDistributionFunction<K>(ranges);
+    }
+
     public static CumulativeDistributionFunction<K> Create<K>(params (K, int)[] items) where K : notnull =>
         Create(items.AsEnumerable());
 

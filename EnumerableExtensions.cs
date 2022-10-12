@@ -1,3 +1,7 @@
+
+
+delegate bool TryGet<S, T>(S item, [MaybeNullWhen(false)] out T result);
+
 static class EnumerableExtensions
 {
 
@@ -31,7 +35,7 @@ static class EnumerableExtensions
     /// <param name="selector">function selecting the value to be accumulated from an item</param>
     /// <param name="init">initial value of accumulator</param>
     /// <param name="agg">function combining selected item value and accumulator into new accumulator value</param>
-    /// <param name="constructor">function constring output value from item and accumulated value</param>
+    /// <param name="constructor">function constructing output value from item and accumulated value</param>
     /// <returns></returns>
     public static IEnumerable<T> Scan<S, T, A>(this IEnumerable<S> source, Func<S, A> selector, A init, Func<A, A, A> agg, Func<S, A, T> constructor)
     {
@@ -42,6 +46,20 @@ static class EnumerableExtensions
             accu = agg(accu, selector(item));
             yield return constructor(item, accu);
         }
+    }
+
+
+    public static bool TryGetFirst<S, T>(this IEnumerable<S> source, TryGet<S, T> tryGet, [MaybeNullWhen(false)] out T first)
+    {
+        foreach (var item in source)
+        {
+            if (tryGet(item, out first))
+            {
+                return true;
+            }
+        }
+        first = default;
+        return false;
     }
 
 
@@ -85,7 +103,5 @@ static class EnumerableExtensions
         }
     }
 }
-
-
 
 
